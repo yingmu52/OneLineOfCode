@@ -199,7 +199,12 @@ func sort(racers: [Racer]) -> [Racer] {
 
 let sortedRacers = sort(racers: racers)
 
-for racer in sortedRacers {
-	print(racer)
+extension Sequence where Element == Racer {
+	func printRacers() {
+		for racer in self {
+			print(racer)
+		}
+	}
 }
 
+sortedRacers.printRacers()
