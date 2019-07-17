@@ -28,8 +28,28 @@ let f150 = Vehicle("F150", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption
 print(honda.info)
 print(f150.info)
 
-let tesla = Vehicle("Tesla", numberOfWheels: 4, fuelTankSize: 0, fuelConsumption: 0) // yak!
+//let tesla = Vehicle("Tesla", numberOfWheels: 4, fuelTankSize: 0, fuelConsumption: 0) // yak!
 let helicopter = Vehicle("Bell-429", numberOfWheels: 0, fuelTankSize: 900 , fuelConsumption: 20) // ???
 
 //print(tesla.info) // error
 print(helicopter.info)
+
+
+class Tesla: Vehicle {
+	let battery: Int // kWh
+	let electricityConsumption: Int // kWh/100km
+	
+	init(_ name: String, battery: Int, electricityConsumption: Int) {
+		self.battery = battery
+		self.electricityConsumption = electricityConsumption
+		super.init(name, numberOfWheels: 4, fuelTankSize: 0, fuelConsumption: 0) // yak!!
+	}
+	
+	override var longestTravelDistance: Int {
+		return self.battery / self.electricityConsumption * 100
+	}
+}
+
+let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
+
+print(tesla.info)
