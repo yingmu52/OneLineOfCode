@@ -23,7 +23,7 @@ class Vehicle {
 }
 
 let honda = Vehicle("Honda", numberOfWheels: 4, fuelTankSize: 50, fuelConsumption: 6)
-let f150 = Vehicle("F150", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 13)
+let f150 = Vehicle("F150 XLT", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 13)
 
 print(honda.info)
 print(f150.info)
@@ -53,3 +53,15 @@ class Tesla: Vehicle {
 let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
 
 print(tesla.info)
+
+class F150: Vehicle {
+	let truckBedSize = 6.5
+	
+	override var info: String {
+		return "\(super.info), bed size: \(truckBedSize)\""
+	}
+}
+
+let rapters = F150("Raptors", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 17)
+print(rapters.info)
+
