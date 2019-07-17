@@ -1,22 +1,5 @@
 import Foundation
 
-//class Vehicle {
-//let name: String
-//let numberOfWheels: Int
-//let fuelTankSize: Int
-//let fuelConsumption: Int
-
-//class Tesla: Vehicle {
-//let battery: Int // kWh
-//let electricityConsumption: Int // kWh/100km
-
-//class F150: Vehicle {
-//	let truckBedSize = 6.5
-
-//class Bike {
-//	let name: String
-//	let numberOfWheels: Int
-//	let canEnterValley = true
 
 protocol Branding {
 	var name: String { get }
@@ -48,73 +31,39 @@ protocol Aircraft {
 	var takeOffVelocity: Double { get }
 }
 
-class Honda: Branding, LandVehicle, GasolineVehicle, Racer {
+struct Honda: Branding, LandVehicle, GasolineVehicle, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let fuelTankSize: Int
 	let fuelConsumption: Int
-	
-	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int) {
-		self.name = name
-		self.fuelTankSize = fuelTankSize
-		self.fuelConsumption = fuelConsumption
-	}
 }
 
-class F150: Branding, LandVehicle, GasolineVehicle, PickupTruck, Racer {
+struct F150: Branding, LandVehicle, GasolineVehicle, PickupTruck, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let fuelTankSize: Int
 	let fuelConsumption: Int
 	let truckBedSize: Double
-	
-	
-	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int, truckBedSize: Double) {
-		self.name = name
-		self.fuelTankSize = fuelTankSize
-		self.fuelConsumption = fuelConsumption
-		self.truckBedSize = truckBedSize
-	}
 }
 
-class Helicoptor: Branding, GasolineVehicle, Aircraft, Racer {
+struct Helicoptor: Branding, GasolineVehicle, Aircraft, Racer {
 	let name: String
 	let fuelTankSize: Int
 	let fuelConsumption: Int
 	let takeOffVelocity: Double
-	
-	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int, takeOffVelocity: Double) {
-		self.name = name
-		self.fuelTankSize = fuelTankSize
-		self.fuelConsumption = fuelConsumption
-		self.takeOffVelocity = takeOffVelocity
-	}
 }
 
-class Tesla: Branding, LandVehicle, ElectricVehicle, Racer {
+struct Tesla: Branding, LandVehicle, ElectricVehicle, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let battery: Int
 	let electricityConsumption: Int
-	
-	
-	init(_ name: String, battery: Int, electricityConsumption: Int) {
-		self.name = name
-		self.battery = battery
-		self.electricityConsumption = electricityConsumption
-	}
 }
 
-class Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
+struct Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
 	let name: String
-	let numberOfWheels: Int
-	let canEnterValley: Bool
-	
-	init(_ name: String) {
-		self.name = name
-		self.numberOfWheels = 2
-		self.canEnterValley = true
-	}
+	let numberOfWheels: Int = 2
+	let canEnterValley: Bool = true
 }
 
 protocol Racer: CustomStringConvertible {
@@ -122,7 +71,7 @@ protocol Racer: CustomStringConvertible {
 	var longestTravelDistance: Int { get }
 }
 
-// the follwing means ----> class WhatEver: Racer, GasolineVehicle {
+// the follwing means ----> struct WhatEver: Racer, GasolineVehicle {
 
 extension Racer where Self: GasolineVehicle {
 	var longestTravelDistance: Int {
@@ -172,12 +121,12 @@ extension Racer where Self: Branding & LandVehicle & SmallVehicleAdvantage {
 	}
 }
 
-let bike = Bike("Bycle")
-let honda = Honda("Honda", fuelTankSize: 50, fuelConsumption: 6)
-let f150XLT = F150("F150 XLT", fuelTankSize: 136, fuelConsumption: 13, truckBedSize: 6.5)
-let helicopter = Helicoptor("Bell-429", fuelTankSize: 900 , fuelConsumption: 20, takeOffVelocity: 230)
-let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
-let rapters = F150("Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
+let bike = Bike(name: "Bycle")
+let honda = Honda(name: "Honda", fuelTankSize: 50, fuelConsumption: 6)
+let f150XLT = F150(name: "F150 XLT", fuelTankSize: 136, fuelConsumption: 13, truckBedSize: 6.5)
+let helicopter = Helicoptor(name: "Bell-429", fuelTankSize: 900 , fuelConsumption: 20, takeOffVelocity: 230)
+let tesla = Tesla(name: "Model-S", battery: 100, electricityConsumption: 20)
+let rapters = F150(name: "Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
 
 extension Sequence where Element == Racer {
 	func printRacers() {
