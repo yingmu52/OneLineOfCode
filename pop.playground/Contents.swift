@@ -116,7 +116,7 @@ class Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
 		self.canEnterValley = true
 	}
 	
-	var info: String {
+	var description: String {
 		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
 	}
 	
@@ -125,8 +125,8 @@ class Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
 	}
 }
 
-protocol Racer {
-	var info: String { get }
+protocol Racer: CustomStringConvertible {
+//	var info: String { get }
 	var longestTravelDistance: Int { get }
 }
 
@@ -145,25 +145,25 @@ extension Racer where Self: ElectricVehicle {
 }
 
 extension Racer where Self: Branding & ElectricVehicle {
-	var info: String {
+	var description: String {
 		return "\(self.name): can travel: \(self.longestTravelDistance) Km"
 	}
 }
 
 extension Racer where Self: Branding & GasolineVehicle {
-	var info: String {
+	var description: String {
 		return "\(self.name): can travel: \(self.longestTravelDistance) Km"
 	}
 }
 
 extension Racer where Self: Branding & GasolineVehicle & PickupTruck {
-	var info: String {
+	var description: String {
 		return "\(self.name): can travel: \(self.longestTravelDistance) Km, bed size: \(truckBedSize)\""
 	}
 }
 
 extension Racer where Self: Branding & GasolineVehicle & SmallVehicleAdvantage {
-	var info: String {
+	var description: String {
 		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
 	}
 }
@@ -174,10 +174,10 @@ let helicopter = Helicoptor("Bell-429", fuelTankSize: 900 , fuelConsumption: 20,
 let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
 let rapters = F150("Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
 
-print(honda.info)
-print(f150XLT.info)
-print(helicopter.info)
-print(tesla.info)
-print(rapters.info)
+print(honda)
+print(f150XLT)
+print(helicopter)
+print(tesla)
+print(rapters)
 
 // swift standard library
