@@ -23,7 +23,7 @@ protocol Branding {
 }
 
 protocol LandVehicle {
-	var numberOfWheels: String { get }
+	var numberOfWheels: Int { get }
 }
 
 protocol GasolineVehicle {
@@ -43,3 +43,77 @@ protocol PickupTruck {
 protocol SmallVehicleAdvantage {
 	var canEnterValley: Bool { get }
 }
+
+protocol Aircraft {
+	var takeOffVelocity: Double { get }
+}
+
+class Honda: Branding, LandVehicle, GasolineVehicle {
+	let name: String
+	let numberOfWheels: Int = 4
+	let fuelTankSize: Int
+	let fuelConsumption: Int
+	
+	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int) {
+		self.name = name
+		self.fuelTankSize = fuelTankSize
+		self.fuelConsumption = fuelConsumption
+	}
+}
+
+class F150: Branding, LandVehicle, GasolineVehicle, PickupTruck {
+	let name: String
+	let numberOfWheels: Int = 4
+	let fuelTankSize: Int
+	let fuelConsumption: Int
+	let truckBedSize: Double
+
+	
+	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int, truckBedSize: Double) {
+		self.name = name
+		self.fuelTankSize = fuelTankSize
+		self.fuelConsumption = fuelConsumption
+		self.truckBedSize = truckBedSize
+	}
+}
+
+class Helicoptor: Branding, GasolineVehicle, Aircraft {
+	let name: String
+	let fuelTankSize: Int
+	let fuelConsumption: Int
+	let takeOffVelocity: Double
+	
+	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int, takeOffVelocity: Double) {
+		self.name = name
+		self.fuelTankSize = fuelTankSize
+		self.fuelConsumption = fuelConsumption
+		self.takeOffVelocity = takeOffVelocity
+	}
+}
+
+class Tesla: Branding, LandVehicle, ElectricVehicle {
+	let name: String
+	let numberOfWheels: Int = 4
+	let battery: Int
+	let electricityConsumption: Int
+	
+	
+	init(_ name: String, battery: Int, electricityConsumption: Int) {
+		self.name = name
+		self.battery = battery
+		self.electricityConsumption = electricityConsumption
+	}
+}
+
+class Bike: Branding, LandVehicle, SmallVehicleAdvantage {
+	let name: String
+	let numberOfWheels: Int
+	let canEnterValley: Bool
+	
+	init(_ name: String) {
+		self.name = name
+		self.numberOfWheels = 2
+		self.canEnterValley = true
+	}
+}
+
