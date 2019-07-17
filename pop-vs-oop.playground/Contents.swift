@@ -65,3 +65,26 @@ class F150: Vehicle {
 let rapters = F150("Raptors", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 17)
 print(rapters.info)
 
+class Bike {
+	let name: String
+	let numberOfWheels: Int
+	let canEnterValley = true
+
+	init(_ name: String, numberOfWheels: Int) {
+		self.name = name
+		self.numberOfWheels = 2
+	}
+	
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
+	}
+	
+	let longestTravelDistance = 100 // km
+}
+
+let bike = Bike("Bycle", numberOfWheels: 2)
+print(bike.info)
+
+// End of OOP
+
+// TODO: POP ??
