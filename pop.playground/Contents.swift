@@ -38,12 +38,42 @@ struct Honda: Branding, LandVehicle, GasolineVehicle, Racer {
 	let fuelConsumption: Int
 }
 
-struct F150: Branding, LandVehicle, GasolineVehicle, PickupTruck, Racer {
-	let name: String
-	let numberOfWheels: Int = 4
-	let fuelTankSize: Int
-	let fuelConsumption: Int
-	let truckBedSize: Double
+enum F150: Branding, LandVehicle, GasolineVehicle, PickupTruck, Racer {
+	case XLT
+	case Lariat
+	case Raptor
+	
+	var name: String {
+		switch self {
+		case .XLT: return "F150 XLT"
+		case .Lariat: return "F150 Lariat"
+		case .Raptor: return "F150 Raptor"
+		}
+	}
+	
+	var numberOfWheels: Int {
+		return 4
+	}
+	
+	var fuelTankSize: Int {
+		switch self {
+		case .XLT: return 50
+		case .Lariat: return 100
+		case .Raptor: return 150
+		}
+	}
+	
+	var fuelConsumption: Int {
+		switch self {
+		case .XLT: return 12
+		case .Lariat: return 13
+		case .Raptor: return 14
+		}
+	}
+	
+	var truckBedSize: Double {
+		return self == .XLT ? 6.5 : 5.5
+	}
 }
 
 struct Helicoptor: Branding, GasolineVehicle, Aircraft, Racer {
@@ -123,10 +153,11 @@ extension Racer where Self: Branding & LandVehicle & SmallVehicleAdvantage {
 
 let bike = Bike(name: "Bycle")
 let honda = Honda(name: "Honda", fuelTankSize: 50, fuelConsumption: 6)
-let f150XLT = F150(name: "F150 XLT", fuelTankSize: 136, fuelConsumption: 13, truckBedSize: 6.5)
+let f150XLT = F150.XLT
+let f150Lariat = F150.Lariat
+let f150Raptor = F150.Raptor
 let helicopter = Helicoptor(name: "Bell-429", fuelTankSize: 900 , fuelConsumption: 20, takeOffVelocity: 230)
 let tesla = Tesla(name: "Model-S", battery: 100, electricityConsumption: 20)
-let rapters = F150(name: "Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
 
 extension Sequence where Element == Racer {
 	func printRacers() {
@@ -140,6 +171,6 @@ extension Sequence where Element == Racer {
 	}
 }
 
-let racers: [Racer] = [honda, f150XLT, helicopter, tesla, rapters, bike]
+let racers: [Racer] = [honda, f150XLT, f150Lariat, f150Raptor, helicopter, tesla, bike]
 let sortedRacers = racers.sortedRacers()
 sortedRacers.printRacers()
