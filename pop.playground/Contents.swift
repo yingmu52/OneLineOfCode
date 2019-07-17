@@ -48,7 +48,7 @@ protocol Aircraft {
 	var takeOffVelocity: Double { get }
 }
 
-class Honda: Branding, LandVehicle, GasolineVehicle {
+class Honda: Branding, LandVehicle, GasolineVehicle, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let fuelTankSize: Int
@@ -61,13 +61,13 @@ class Honda: Branding, LandVehicle, GasolineVehicle {
 	}
 }
 
-class F150: Branding, LandVehicle, GasolineVehicle, PickupTruck {
+class F150: Branding, LandVehicle, GasolineVehicle, PickupTruck, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let fuelTankSize: Int
 	let fuelConsumption: Int
 	let truckBedSize: Double
-
+	
 	
 	init(_ name: String, fuelTankSize: Int, fuelConsumption: Int, truckBedSize: Double) {
 		self.name = name
@@ -77,7 +77,7 @@ class F150: Branding, LandVehicle, GasolineVehicle, PickupTruck {
 	}
 }
 
-class Helicoptor: Branding, GasolineVehicle, Aircraft {
+class Helicoptor: Branding, GasolineVehicle, Aircraft, Racer {
 	let name: String
 	let fuelTankSize: Int
 	let fuelConsumption: Int
@@ -91,7 +91,7 @@ class Helicoptor: Branding, GasolineVehicle, Aircraft {
 	}
 }
 
-class Tesla: Branding, LandVehicle, ElectricVehicle {
+class Tesla: Branding, LandVehicle, ElectricVehicle, Racer {
 	let name: String
 	let numberOfWheels: Int = 4
 	let battery: Int
@@ -105,7 +105,7 @@ class Tesla: Branding, LandVehicle, ElectricVehicle {
 	}
 }
 
-class Bike: Branding, LandVehicle, SmallVehicleAdvantage {
+class Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
 	let name: String
 	let numberOfWheels: Int
 	let canEnterValley: Bool
@@ -115,5 +115,69 @@ class Bike: Branding, LandVehicle, SmallVehicleAdvantage {
 		self.numberOfWheels = 2
 		self.canEnterValley = true
 	}
+	
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
+	}
+	
+	var longestTravelDistance: Int {
+		return 100
+	}
 }
 
+protocol Racer {
+	var info: String { get }
+	var longestTravelDistance: Int { get }
+}
+
+// the follwing means ----> class WhatEver: Racer, GasolineVehicle {
+
+extension Racer where Self: GasolineVehicle {
+	var longestTravelDistance: Int {
+		return self.fuelTankSize / self.fuelConsumption * 100
+	}
+}
+
+extension Racer where Self: ElectricVehicle {
+	var longestTravelDistance: Int {
+		return self.battery / self.electricityConsumption * 100
+	}
+}
+
+extension Racer where Self: Branding & ElectricVehicle {
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km"
+	}
+}
+
+extension Racer where Self: Branding & GasolineVehicle {
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km"
+	}
+}
+
+extension Racer where Self: Branding & GasolineVehicle & PickupTruck {
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km, bed size: \(truckBedSize)\""
+	}
+}
+
+extension Racer where Self: Branding & GasolineVehicle & SmallVehicleAdvantage {
+	var info: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
+	}
+}
+
+let honda = Honda("Honda", fuelTankSize: 50, fuelConsumption: 6)
+let f150XLT = F150("F150 XLT", fuelTankSize: 136, fuelConsumption: 13, truckBedSize: 6.5)
+let helicopter = Helicoptor("Bell-429", fuelTankSize: 900 , fuelConsumption: 20, takeOffVelocity: 230)
+let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
+let rapters = F150("Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
+
+print(honda.info)
+print(f150XLT.info)
+print(helicopter.info)
+print(tesla.info)
+print(rapters.info)
+
+// swift standard library
