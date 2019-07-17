@@ -23,10 +23,10 @@ class Vehicle {
 }
 
 let honda = Vehicle("Honda", numberOfWheels: 4, fuelTankSize: 50, fuelConsumption: 6)
-let f150 = Vehicle("F150 XLT", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 13)
+let f150XLT = Vehicle("F150 XLT", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption: 13)
 
 print(honda.info)
-print(f150.info)
+print(f150XLT.info)
 
 //let tesla = Vehicle("Tesla", numberOfWheels: 4, fuelTankSize: 0, fuelConsumption: 0) // yak!
 let helicopter = Vehicle("Bell-429", numberOfWheels: 0, fuelTankSize: 900 , fuelConsumption: 20) // ???
@@ -86,5 +86,44 @@ let bike = Bike("Bycle", numberOfWheels: 2)
 print(bike.info)
 
 // End of OOP
+
+// racing use case
+let racers: [Any] = [honda, f150XLT, helicopter, tesla, rapters, bike]
+//for racer in racers {
+//	print(racer.longestTravelDistance) ??
+//}
+
+func sort(_ racers: [Any]) -> [Any] {
+	var racers1 = racers
+	racers1.sort(by: { (a, b) -> Bool in
+		switch (a, b) {
+		case (let left as Vehicle, let right as Bike):
+			return left.longestTravelDistance < right.longestTravelDistance
+		case (let left as Vehicle, let right as Vehicle):
+			return left.longestTravelDistance < right.longestTravelDistance
+		case (let left as Bike, let right as Vehicle):
+			return left.longestTravelDistance < right.longestTravelDistance
+		case (let left as Bike, let right as Bike):
+			return left.longestTravelDistance < right.longestTravelDistance
+		default:
+			return false
+		}
+	})
+	return racers1
+}
+
+print("\n")
+print("sorting...")
+let sortedRacer = sort(racers)
+for racer in sortedRacer {
+	switch racer {
+	case let r as Vehicle:
+		print(r.name, r.longestTravelDistance)
+	case let r as Bike:
+		print(r.name, r.longestTravelDistance)
+	default:
+		fatalError("Error")
+	}
+}
 
 // TODO: POP ??
