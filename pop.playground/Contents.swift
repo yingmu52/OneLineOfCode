@@ -115,14 +115,6 @@ class Bike: Branding, LandVehicle, SmallVehicleAdvantage, Racer {
 		self.numberOfWheels = 2
 		self.canEnterValley = true
 	}
-	
-	var description: String {
-		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
-	}
-	
-	var longestTravelDistance: Int {
-		return 100
-	}
 }
 
 protocol Racer: CustomStringConvertible {
@@ -168,16 +160,46 @@ extension Racer where Self: Branding & GasolineVehicle & SmallVehicleAdvantage {
 	}
 }
 
+extension Racer where Self: LandVehicle & SmallVehicleAdvantage {
+	var longestTravelDistance: Int {
+		return 100
+	}
+}
+
+extension Racer where Self: Branding & LandVehicle & SmallVehicleAdvantage {
+	var description: String {
+		return "\(self.name): can travel: \(self.longestTravelDistance) Km, can enter valley: \(self.canEnterValley)"
+	}
+}
+
+let bike = Bike("Bycle")
 let honda = Honda("Honda", fuelTankSize: 50, fuelConsumption: 6)
 let f150XLT = F150("F150 XLT", fuelTankSize: 136, fuelConsumption: 13, truckBedSize: 6.5)
 let helicopter = Helicoptor("Bell-429", fuelTankSize: 900 , fuelConsumption: 20, takeOffVelocity: 230)
 let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
 let rapters = F150("Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
 
-print(honda)
-print(f150XLT)
-print(helicopter)
-print(tesla)
-print(rapters)
+//print(bike)
+//print(honda)
+//print(f150XLT)
+//print(helicopter)
+//print(tesla)
+//print(rapters)
 
 // swift standard library
+
+let racers: [Racer] = [honda, f150XLT, helicopter, tesla, rapters, bike]
+
+
+func sort(racers: [Racer]) -> [Racer] {
+	var result = racers
+	result.sort { $0.longestTravelDistance < $1.longestTravelDistance }
+	return result
+}
+
+let sortedRacers = sort(racers: racers)
+
+for racer in sortedRacers {
+	print(racer)
+}
+
