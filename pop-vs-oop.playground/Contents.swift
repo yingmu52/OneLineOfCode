@@ -27,3 +27,9 @@ let f150 = Vehicle("F150", numberOfWheels: 4, fuelTankSize: 136, fuelConsumption
 
 print(honda.info)
 print(f150.info)
+
+let tesla = Vehicle("Tesla", numberOfWheels: 4, fuelTankSize: 0, fuelConsumption: 0) // yak!
+let helicopter = Vehicle("Bell-429", numberOfWheels: 0, fuelTankSize: 900 , fuelConsumption: 20) // ???
+
+//print(tesla.info) // error
+print(helicopter.info)
