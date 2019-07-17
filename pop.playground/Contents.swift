@@ -179,32 +179,18 @@ let helicopter = Helicoptor("Bell-429", fuelTankSize: 900 , fuelConsumption: 20,
 let tesla = Tesla("Model-S", battery: 100, electricityConsumption: 20)
 let rapters = F150("Raptors", fuelTankSize: 136, fuelConsumption: 17, truckBedSize: 5.5)
 
-//print(bike)
-//print(honda)
-//print(f150XLT)
-//print(helicopter)
-//print(tesla)
-//print(rapters)
-
-// swift standard library
-
-let racers: [Racer] = [honda, f150XLT, helicopter, tesla, rapters, bike]
-
-
-func sort(racers: [Racer]) -> [Racer] {
-	var result = racers
-	result.sort { $0.longestTravelDistance < $1.longestTravelDistance }
-	return result
-}
-
-let sortedRacers = sort(racers: racers)
-
 extension Sequence where Element == Racer {
 	func printRacers() {
 		for racer in self {
 			print(racer)
 		}
 	}
+	
+	func sortedRacers() -> [Racer] {
+		return self.sorted { $0.longestTravelDistance < $1.longestTravelDistance }
+	}
 }
 
+let racers: [Racer] = [honda, f150XLT, helicopter, tesla, rapters, bike]
+let sortedRacers = racers.sortedRacers()
 sortedRacers.printRacers()
